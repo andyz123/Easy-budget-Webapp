@@ -34,3 +34,18 @@ app.get('/', function(req, res){
 		day: 'numeric', 
 		month: 'long'
 	};
+
+	let day = date.toLocaleDateString('en-US', options);
+	let sum = 0;
+	Budget.find({}, function(err, foundBudget){
+		for (let i = 0; i < foundBudget.length; i++){
+			sum += foundBudget[i].sum;
+		}
+		res.render('budgetList', {
+		day: day,
+		budget: foundBudget,
+		sum: sum
+	});
+	})
+
+});
